@@ -18,34 +18,34 @@ I have downloaded the data files from that website and saved into "C:/Users/Riml
 
 Data
 Importing data files:
-trainingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-training.csv", head=TRUE, sep=",")
-testingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-testing.csv", head=TRUE, sep=",")
+<trainingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-training.csv", head=TRUE, sep=",")>
+<testingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-testing.csv", head=TRUE, sep=",")>
 
 OR
 
 The data files can be imported directly from the given link:
 
-trainData <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
-testData <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+<trainData <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv">
+<testData <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv">
 
-trainingRaw <- read.csv(url(trainData), na.strings=c("NA","#DIV/0!",""))
-testingRaw <- read.csv(url(testData), na.strings=c("NA","#DIV/0!",""))
+<trainingRaw <- read.csv(url(trainData), na.strings=c("NA","#DIV/0!",""))>
+<testingRaw <- read.csv(url(testData), na.strings=c("NA","#DIV/0!",""))>
 
 Loading library used:
 
-library(lattice)
-library(ggplot2) 
-library(caret) 
-library(randomForest) 
+<library(lattice)>
+<library(ggplot2)> 
+<library(caret)> 
+<library(randomForest)>
 
 
-dim(trainingRaw)
-[1] 19622  160
+<dim(trainingRaw)>
+<[1] 19622  160>
 There are 19622 records with 160 variables.
-nrow(trainingRaw)
-[1]  19622
-ncol(trainingRaw)
-[1]  160
+<nrow(trainingRaw)>
+<[1]  19622>
+<ncol(trainingRaw)>
+<[1]  160>
 
 summary(trainingRaw$classe)
     A       B        C       D        E
