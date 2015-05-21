@@ -1,5 +1,5 @@
-# R-Scrpt
-https://github.com/RS1985/Project
+R-Scrpt
+https://github.com/RS1985/edit/master
 Project Assignment:
 
 
@@ -18,7 +18,7 @@ I have downloaded the data files from that website and saved into "C:/Users/Riml
 
 Data
 Importing data files:
-# trainingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-training.csv", head=TRUE, sep=",")
+trainingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-training.csv", head=TRUE, sep=",")
 # testingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-testing.csv", head=TRUE, sep=",")
 
 OR
