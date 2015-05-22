@@ -12,6 +12,9 @@
       ind <-which(colSums(is.na(Training))!=0)
       Training<-Training[, -ind]
       Training<-Training[,-(1:7)]
+      library(lattice)
+      library(ggplot2)
+      library(caret)
       InTrain  <- createDataPartition(y=Training$classe,p=0.70,list=FALSE)
       NewTrain <- Training[InTrain,]
       NewTest <- Training[-InTrain,]
