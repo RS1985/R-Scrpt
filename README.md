@@ -9,7 +9,7 @@ We will use the data mentioned above to develop a predictive model for this clas
 The dependent variable is the “classe” variable in the training set.
 
 The training data for this project is available here:
- https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
+https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
 
 The testing data for this project is available here:
 https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
