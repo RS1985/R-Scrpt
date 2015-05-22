@@ -73,7 +73,7 @@ we can remove the first seven variables.
           
           Training = Training[,-(1:7)]
 
-Cross Validation:
+Creating a stratified sample of the data into training and test set:
           
 Next, we will split Training into a training set to train the model and 
 a validate data set to test how good the model is:
