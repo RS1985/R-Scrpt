@@ -11,11 +11,11 @@ about personal activity relatively inexpensively. These type of devices are part
 We will use the data mentioned above to develop a predictive model for this classes.
 The dependent variable is the “classe” variable in the training set.
 
-        The training data for this project is available here:
-        https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
+The training data for this project is available here:
+         https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
 
 The testing data for this project is available here:
-        https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
+         https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
 
 I have downloaded the data files from that website and saved into "C:/Users/Rimli/Desktop/Coursera/Week3/Data".
 
@@ -23,36 +23,36 @@ Data
        
 Importing data files:
        
-       trainingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-training.csv", head=TRUE, sep=",")
-       testingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-testing.csv", head=TRUE, sep=",")
+         trainingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-training.csv", head=TRUE, sep=",")
+         testingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-testing.csv", head=TRUE, sep=",")
 OR
 
 The data files can be imported directly from the given link:
        
-       trainData = "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
-       testData = "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+         trainData = "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+         testData = "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
 
-       trainingRaw = read.csv(url(trainData), na.strings=c("NA","#DIV/0!",""))
-       testingRaw = read.csv(url(testData), na.strings=c("NA","#DIV/0!",""))
+         trainingRaw = read.csv(url(trainData), na.strings=c("NA","#DIV/0!",""))
+         testingRaw = read.csv(url(testData), na.strings=c("NA","#DIV/0!",""))
 
 Loading library used:
 
-       library(lattice)
-       library(ggplot2) 
-       library(caret) 
-       library(randomForest)
+         library(lattice)
+         library(ggplot2) 
+         library(caret) 
+         library(randomForest)
 
 
-        dim(trainingRaw)
-        [1] 19622  160
+         dim(trainingRaw)
+         [1] 19622  160
         
 There are 19622 records with 160 variables.
         
-        nrow(trainingRaw)
-        [1]  19622
+         nrow(trainingRaw)
+         [1]  19622
         
-        ncol(trainingRaw)
-        [1]  160
+         ncol(trainingRaw)
+         [1]  160
 
           summary(trainingRaw$classe)
             A        B         C        D         E
@@ -80,6 +80,9 @@ Cross Validation:
 Next, we will split Training into a training set to train the model and 
 a validate data set to test how good the model is:
           
+          library(lattice)
+          library(ggplot2)
+          library(caret)
           InTrain  =  createDataPartition(y = Training$classe, p = 0.70, list = FALSE)
           NewTrain = Training[InTrain, ]
           NewTest = Training[-InTrain, ]
