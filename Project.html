@@ -69,7 +69,7 @@ img {
 <ul>
 <li><a href="#data">Data</a></li>
 <li><a href="#getting-and-cleaning-the-data-set">Getting and Cleaning the data set</a></li>
-<li><a href="#cross-validation">Cross Validation</a></li>
+<li><a href="#creating-a-stratified-sample-of-the-data-into-training-and-test-sets">Creating a stratified sample of the data into training and test sets</a></li>
 <li><a href="#predicting-model">Predicting Model</a></li>
 <li><a href="#evaluating-the-model">Evaluating the model</a></li>
 <li><a href="#comparing-accuracy-of-the-model">Comparing Accuracy of the model</a></li>
@@ -179,8 +179,8 @@ Training &lt;- Training[, -ind]</code></pre>
 <pre class="r"><code>Training &lt;- Training[,-(1:7)]</code></pre>
 </div>
 
-<div id="cross-validation" class="section level1">
-<h1>Cross Validation</h1>
+<div id="creating-a-stratified-sample-of-the-data-into-training-and-test-sets" class="section level1">
+<h1>Creating a stratified sample of the data into training and test sets</h1>
 <p>Next, we will split Training into a training set to train the model and a validate data set to test how good the model is.</p>
 
 <pre class="r"><code>require(lattice)
