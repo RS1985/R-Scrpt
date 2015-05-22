@@ -1,5 +1,5 @@
 Project
-https://github.com/RS1985/R-Scrpt/edit/master
+
 Project Assignment:
 
 
@@ -91,9 +91,6 @@ about personal activity relatively inexpensively. These type of devices are part
           We will now create a model to predict the "classe" using random forest on the remaining variables 
           (this model took long time to run on my machine.)
           
-          library(lattice)
-          library(ggplot2)
-          library(caret)
           
           library(randomForest)
           randomForest 4.6-10
