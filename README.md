@@ -17,8 +17,8 @@ about personal activity relatively inexpensively. These type of devices are part
         The testing data for this project is available here:
         https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
 
-      I have downloaded the data files from that website and saved into 
-      "C:/Users/Rimli/Desktop/Coursera/Week3/Data".
+        I have downloaded the data files from that website and saved into 
+        "C:/Users/Rimli/Desktop/Coursera/Week3/Data".
 
        Data
        
@@ -119,9 +119,6 @@ about personal activity relatively inexpensively. These type of devices are part
 
           Once we have trained the model on the training data, we can test the model on the validate data set:
           
-          mean(predict(modelFit,  NewTest) == NewTest$classe) * 100
-          [1]  100
-
           Using Confussion Matrix to evaluate the Prediction Model set versus the testing Data set.
 
           confusionMatrix(predict(modelFit,  NewTest), NewTest$classe)
@@ -159,7 +156,10 @@ about personal activity relatively inexpensively. These type of devices are part
 
 
           Comparing Accuracy of the model:
-
+          
+          mean(predict(modelFit,  NewTest) == NewTest$classe) * 100
+          [1]  100
+          
           accurate = c(as.numeric(predict(modelFit,  newdata = NewTest[, -ncol(NewTest)]) == NewTest$classe))
           Accuracy = sum(accurate)*100/nrow(NewTest)
          message("Accuracy of Prediction Model set VS Validate Data set = ", format(round(Accuracy, 2), 
