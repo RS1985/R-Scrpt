@@ -55,22 +55,27 @@ about personal activity relatively inexpensively. These type of devices are part
          The variable we will predict is "classe", and the data has been split up between five classes.
 
           Getting and Cleaning the data set:
-          At first we will exclude the columns with NA values from trainingRaw data set and make a new training data set:
+          At first we will exclude the columns with NA values from trainingRaw data set and 
+          make a new training data set:
           Training = trainingRaw
           Training[ Training == '' | Training == 'NA']  =  NA
           ind  = which(colSums(is.na(Training)) != 0)
           Training = Training[, -ind]
-         In order to look only at the variables related to the goal of the project, we can remove the first seven variables.
+         In order to look only at the variables related to the goal of the project, 
+         we can remove the first seven variables.
           Training = Training[,-(1:7)]
 
           Cross Validation:
-         Next, we will split Training into a training set to train the model and a validate data set to test how good the model is:
+         Next, we will split Training into a training set to train the model and 
+         a validate data set to test how good the model is:
           InTrain  =  createDataPartition(y = Training$classe, p = 0.70, list = FALSE)
           NewTrain = Training[InTrain, ]
           NewTest = Training[-InTrain, ]
 
           Predicting Model:
-          We will now create a model to predict the "classe" using random forest on the remaining variables (this model took long time to run on my machine.)
+          We will now create a model to predict the "classe" using random forest on the remaining variables 
+          (this model took long time to run on my machine.)
+          
           library(lattice)
           library(ggplot2)
           library(caret)
@@ -89,14 +94,15 @@ about personal activity relatively inexpensively. These type of devices are part
           Resampling:   Bootstrapped (25 reps)
           Summary of sample sizes:    13737,    13737,    13737,    13737,    13737,    13737, ...
           Resampling results
-                                           Accuracy      Kappa            Accuracy SD        Kappa SD
-                                           0.987425     0.9840931         0.001927406       0.002429363
+                        Accuracy      Kappa            Accuracy SD        Kappa SD
+                        0.987425     0.9840931         0.001927406       0.002429363
           Tuning parameter 'mtry' was held constant at a value of 17
 
 
           Evaluating the model:
 
           Once we have trained the model on the training data, we can test the model on the validate data set:
+          
           mean(predict(modelFit,  NewTest) == NewTest$classe) * 100
           [1]  100
 
@@ -140,7 +146,8 @@ about personal activity relatively inexpensively. These type of devices are part
 
           accurate = c(as.numeric(predict(modelFit,  newdata = NewTest[, -ncol(NewTest)]) == NewTest$classe))
           Accuracy = sum(accurate)*100/nrow(NewTest)
-         message("Accuracy of Prediction Model set VS Validate Data set = ", format(round(Accuracy, 2), nsmall=2),"%")
+         message("Accuracy of Prediction Model set VS Validate Data set = ", format(round(Accuracy, 2), 
+         nsmall=2),"%")
           Accuracy of Prediction Model set VS Validate Data set = 100.00%
 
           Conclusion:
