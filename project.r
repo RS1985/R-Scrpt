@@ -15,6 +15,7 @@
       InTrain  <- createDataPartition(y=Training$classe,p=0.70,list=FALSE)
       NewTrain <- Training[InTrain,]
       NewTest <- Training[-InTrain,]
+      
       library(randomForest)
       modelFit <- train(classe~., data=NewTrain, method = "rf", tuneLength = 1, ntree = 25)
       confusionMatrix(predict(modelFit, NewTest), NewTest$classe)
