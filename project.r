@@ -18,6 +18,7 @@
       
       library(randomForest)
       modelFit <- train(classe~., data=NewTrain, method = "rf", tuneLength = 1, ntree = 25)
+      
       confusionMatrix(predict(modelFit, NewTest), NewTest$classe)
 
 
