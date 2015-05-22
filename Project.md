@@ -8,28 +8,26 @@ Goal:
 Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data
 about personal activity relatively inexpensively. These type of devices are part of the quantified self movement - a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset).
         
-        We will use the data mentioned above to develop a predictive model for this classes.
-        The dependent variable is the “classe” variable in the training set.
+We will use the data mentioned above to develop a predictive model for this classes.
+The dependent variable is the “classe” variable in the training set.
 
         The training data for this project is available here:
         https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
 
-        The testing data for this project is available here:
+The testing data for this project is available here:
         https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
 
-        I have downloaded the data files from that website and saved into 
-        "C:/Users/Rimli/Desktop/Coursera/Week3/Data".
+I have downloaded the data files from that website and saved into "C:/Users/Rimli/Desktop/Coursera/Week3/Data".
 
-       Data
+Data
        
-       Importing data files:
+Importing data files:
        
        trainingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-training.csv", head=TRUE, sep=",")
        testingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/Week3/Data/pml-testing.csv", head=TRUE, sep=",")
+OR
 
-      OR
-
-       The data files can be imported directly from the given link:
+The data files can be imported directly from the given link:
        
        trainData = "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
        testData = "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
@@ -37,7 +35,7 @@ about personal activity relatively inexpensively. These type of devices are part
        trainingRaw = read.csv(url(trainData), na.strings=c("NA","#DIV/0!",""))
        testingRaw = read.csv(url(testData), na.strings=c("NA","#DIV/0!",""))
 
-       Loading library used:
+Loading library used:
 
        library(lattice)
        library(ggplot2) 
@@ -48,7 +46,7 @@ about personal activity relatively inexpensively. These type of devices are part
         dim(trainingRaw)
         [1] 19622  160
         
-        There are 19622 records with 160 variables.
+There are 19622 records with 160 variables.
         
         nrow(trainingRaw)
         [1]  19622
@@ -60,36 +58,36 @@ about personal activity relatively inexpensively. These type of devices are part
             A        B         C        D         E
            5580     3797      3422     3216      3607
 
-         The variable we will predict is "classe", and the data has been split up between five classes.
+The variable we will predict is "classe", and the data has been split up between five classes.
 
-          Getting and Cleaning the data set:
+Getting and Cleaning the data set:
           
-          At first we will exclude the columns with NA values from trainingRaw data set and 
-          make a new training data set:
+At first we will exclude the columns with NA values from trainingRaw data set and 
+make a new training data set:
           
           Training = trainingRaw
           Training[ Training == '' | Training == 'NA']  =  NA
           ind  = which(colSums(is.na(Training)) != 0)
           Training = Training[, -ind]
           
-          In order to look only at the variables related to the goal of the project, 
-          we can remove the first seven variables.
+In order to look only at the variables related to the goal of the project, 
+we can remove the first seven variables.
           
           Training = Training[,-(1:7)]
 
-          Cross Validation:
+Cross Validation:
           
-          Next, we will split Training into a training set to train the model and 
-          a validate data set to test how good the model is:
+Next, we will split Training into a training set to train the model and 
+a validate data set to test how good the model is:
           
           InTrain  =  createDataPartition(y = Training$classe, p = 0.70, list = FALSE)
           NewTrain = Training[InTrain, ]
           NewTest = Training[-InTrain, ]
 
-          Predicting Model:
+Predicting Model:
           
-          We will now create a model to predict the "classe" using random forest on the remaining variables 
-          (this model took long time to run on my machine.)
+We will now create a model to predict the "classe" using random forest on the remaining variables 
+(this model took long time to run on my machine.)
           
           
           library(randomForest)
@@ -112,11 +110,11 @@ about personal activity relatively inexpensively. These type of devices are part
           Tuning parameter 'mtry' was held constant at a value of 17
 
 
-          Evaluating the model:
+Evaluating the model:
 
-          Once we have trained the model on the training data, we can test the model on the validate data set:
+Once we have trained the model on the training data, we can test the model on the validate data set:
           
-          Using Confussion Matrix to evaluate the Prediction Model set versus the testing Data set.
+Using Confussion Matrix to evaluate the Prediction Model set versus the testing Data set.
 
           confusionMatrix(predict(modelFit,  NewTest), NewTest$classe)
 
@@ -152,7 +150,7 @@ about personal activity relatively inexpensively. These type of devices are part
               Balanced Accuracy            1.0000        1.0000        1.0000        1.000         1.0000
 
 
-          Comparing Accuracy of the model:
+Comparing Accuracy of the model:
           
           mean(predict(modelFit,  NewTest) == NewTest$classe) * 100
           [1]  100
@@ -164,11 +162,11 @@ about personal activity relatively inexpensively. These type of devices are part
           
           Accuracy of Prediction Model set VS Validate Data set = 100.00%
 
-          Conclusion:
-          Hence the result shows a 100% accuracy which proves that the random forest really fits well in this case.
+Conclusion:
+Hence the result shows a 100% accuracy which proves that the random forest really fits well in this case.
 
 
-          Prediction on the Testing set:
+Prediction on the Testing set:
 
           nrow(testingRaw)
           [1]  20
@@ -184,7 +182,7 @@ about personal activity relatively inexpensively. These type of devices are part
 
 
 
-          Generating Files for the Assignment:
+Generating Files for the Assignment:
           
           pml_write_files = function(x){
           n = length(x)
