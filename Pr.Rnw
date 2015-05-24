@@ -1,0 +1,564 @@
+\documentclass{beamer}
+\usetheme{Stats}
+\setbeamercovered{transparent}
+\usepackage{color}
+\usepackage{animate}
+\usepackage{textpos}
+
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{ragged2e}
+
+
+
+\newcommand\makebeamertitle{\frame{\maketitle}}%
+\AtBeginDocument{
+  \let\origtableofcontents=\tableofcontents
+  \def\tableofcontents{\@ifnextchar[{\origtableofcontents}{\gobbletableofcontents}}
+  \def\gobbletableofcontents#1{\origtableofcontents}
+}
+
+
+\usepackage{Sweave}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\input{Pr-concordance}
+
+
+
+
+\title[ ]{
+          
+          Subject: Practical Machine Learning : Project Assignment\\
+          \vspace{3.2 cm}
+          Author: Rimli\\
+          Date: 23rd May, 2015
+          
+}
+\date{}
+\makebeamertitle
+
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{100mm}(7.7cm,-1cm)
+%\includegraphics[height=1cm,width=4cm]{logo_slides}
+\end{textblock*}}
+
+\addtobeamertemplate{frametitle}{\vskip 1ex}{}
+
+
+
+
+%Slide-1
+
+\begin{frame}[fragile]
+\frametitle{Goal}
+\begin{itemize}
+\begin{alertblock}
+{\textcolor{violet}{Using devices such as Jawbone Up, Nike FuelBand, 
+and Fitbit it is now possible to collect a large amount of data about 
+personal activity relatively inexpensively.}}
+\end{alertblock}
+
+\end{itemize}
+\end{frame}
+
+%Slide-2
+
+\begin{frame}[fragile]
+\frametitle{Goal}
+\begin{itemize}
+\begin{alertblock}
+{\textcolor{violet}
+{These type of devices are part of the quantified self movement 
+- a group of enthusiasts who take measurements about themselves 
+regularly to improve their health, to find patterns in their behavior, 
+or because they are tech geeks.\newline
+\linebreak[2]
+One thing that people regularly do is quantify how much of a 
+particular activity they do, but they rarely quantify how well they do it.}}
+\end{alertblock}
+
+\end{itemize}
+\end{frame}
+
+
+%Slide-3
+
+\begin{frame}[fragile]
+\frametitle{Goal}
+\begin{itemize}
+\begin{alertblock}
+{\textcolor{violet} {In this project, the goal will be to use data 
+from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. 
+They were asked to perform barbell lifts correctly and incorrectly in 5 
+different ways.\newline
+\linebreak[2]
+More information is available from the website here: 
+http://groupware.les.inf.puc-rio.br/har (see the section on the Weight 
+Lifting Exercise Dataset).}}
+\end{alertblock}
+\end{itemize}
+\end{frame}
+
+%Slide-4
+
+\begin{frame}[fragile]
+\frametitle{Objective}
+\begin{tcolorbox}
+\begin{itemize}
+\item We will use the data mentioned above to develop a predictive model 
+for this classes.\\  
+\item The dependent variable is the 'classe' variable in the training set.
+
+\end{itemize}
+\end{tcolorbox}
+\end{frame}
+
+
+%Slide-5
+
+\begin{frame}[fragile]
+\frametitle{Data}
+\begin{itemize}
+\begin{tcolorbox}
+\item The training data for this project is available here:\\
+\end{tcolorbox}
+\alert{\href{https://d396qusza40orc.cloudfront.net/predmachlearn/
+pml-training.csv}{https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv}}\\
+
+\begin{tcolorbox}
+\item The testing data for this project is available here:\\ 
+\end{tcolorbox}
+\alert{\href{https://d396qusza40orc.cloudfront.net/predmachlearn/
+pml-testing.csv}{https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv}}\\
+
+
+\item I have downloaded the data files from that website and 
+saved into "C:/Users/Rimli/Desktop/Coursera/Week3/Data".
+
+
+\end{itemize}
+
+\end{frame}
+
+
+%Slide-6
+
+\begin{frame}[fragile]
+\frametitle{Importing Data Files}
+\begin{itemize}
+\begin{block}{Importing Data:}\newline
+trainingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/
+Week3/Data/pml-training.csv", head=TRUE, sep=",")\newline
+
+\linebreak[2]
+testingRaw=read.csv("C:/Users/Rimli/Desktop/Coursera/
+Week3/Data/pml-testing.csv", head=TRUE, sep=",")
+
+\end{block}
+\end{itemize}
+\end{frame}
+
+%Slide-7
+
+\begin{frame}[fragile]
+\frametitle{Data Import}
+\begin{itemize}
+\item trainData=\\
+\href http://d396qusza40orc.cloudfront.net/predmachlearn/
+pml-training.csv\\[12pt]
+\item trainData=\\
+\href https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
+
+\end{itemize}
+\end{frame}
+
+
+%Slide-8
+
+\begin{frame}[fragile]
+\frametitle{Importing Data Files}
+\begin{itemize}
+\item trainingRaw=read.csv(url(trainData), na.strings=c("NA","\#DIV/0!",""))\\
+
+\item testingRaw=read.csv(url(testData), na.strings=c("NA","\#DIV/0!",""))
+
+\end{itemize}
+\end{frame}
+
+
+%Slide-9
+
+\begin{frame}[fragile]
+\frametitle{Loading Library Used}
+\begin{itemize}
+\begin{block}
+{\item library(lattice)\newline
+\item library(ggplot2)\newline
+\item library(caret)\newline
+\item library(randomForest)}
+
+\end{block}
+\end{itemize}
+\end{frame}
+
+
+%Slide-10
+
+\begin{frame}[fragile]
+\frametitle{training data set}
+\begin{itemize}
+\begin{tcolorbox}
+\item dim(trainingRaw)\\
+      19622    160\\
+There are 19622 records with 160 variables.\\
+\item nrow(trainingRaw)\\
+      19622\\
+\item ncol(trainingRaw)\\
+     160
+
+\end{tcolorbox}
+\end{itemize}
+\end{frame}
+
+
+%Slide-11
+
+\begin{frame}[fragile]
+\frametitle{training data set}
+\begin{itemize}
+\begin{tcolorbox}
+\item summary(trainingRaw\$classe)\\
+\begin{center}
+\begin{tabular}{ ccccc } 
+% \hline
+A & B & C & D & E \\ 
+5580 & 3797 & 3422 & 3216 & 3607 \\ 
+ 
+% \hline
+\end{tabular}
+\end{center}
+
+\item The variable we will predict is "classe", and the data 
+has been split up between five classes.
+
+\end{tcolorbox}
+\end{itemize}
+\end{frame}
+
+
+%Slide-12
+
+\begin{frame}[fragile]
+\frametitle{Getting and Cleaning the data set}
+\begin{itemize}
+\begin{tcolorbox}
+\item At first we will exclude the columns with NA values from 
+trainingRaw data set and make a new training data set:\\[12pt]
+Training = trainingRaw\\
+Training[ Training == ' ' | Training == 'NA']  =  NA\\
+ind  = which(colSums(is.na(Training)) != 0)\\
+Training = Training[, -ind]\\[12pt]
+\item In order to look only at the variables related to the goal 
+of the project, we can remove the first seven variables.\\
+Training = Training[,-(1:7)]
+
+\end{tcolorbox}
+\end{itemize}
+\end{frame}
+
+
+%Slide-13
+
+\begin{frame}[fragile]
+\frametitle{Splitting data into training and test set}
+\begin{itemize}
+\begin{tcolorbox}
+\item Next, we will split Training into a training set to train 
+the model and a validate data set to test how good the model is:\\[12pt]
+library(lattice)\\
+library(ggplot2)\\
+library(caret)\\
+InTrain  = createDataPartition(y = Training\$classe, p = 0.70, 
+list = FALSE)\\
+NewTrain = Training[InTrain, ]\\
+NewTest = Training[-InTrain, ]
+
+\end{tcolorbox}
+\end{itemize}
+\end{frame}
+
+
+%Slide-14
+
+\begin{frame}[fragile]
+\frametitle{Predicting Model:}
+\begin{itemize}
+\begin{tcolorbox}
+\item We will now create a model to predict the "classe" using 
+random forest on the remaining variables (this model took 
+long time to run on my machine.)\\[12pt]
+library(randomForest)\\
+randomForest 4.6-10\\
+Type rfNews() to see new features/changes/bug fixes.
+
+
+\end{tcolorbox}
+\end{itemize}
+\end{frame}
+
+
+%Slide-15
+
+\begin{frame}[fragile]
+\frametitle{Random Forest}
+
+\begin{lstlisting}[language=R]
+
+modelFit = train(classe ~ .,data = NewTrain,  
+method = "rf",  tuneLength = 1,  ntree = 25)
+
+
+
+
+\end{lstlisting}
+\end{frame}
+
+%Slide-16
+
+\begin{frame}[fragile]
+\frametitle{Output:}
+
+\begin{tcolorbox}
+%\begin{itemize}
+Random Forest\newline
+13737 samples\newline
+52 predictors\newline
+5 classes:  'A',\quad'B',\quad'C',\quad'D',\quad'E'\newline
+No pre-processing\newline
+Resampling:   Bootstrapped (25 reps)\newline
+Summary of sample sizes:  13737,13737,13737,13737,...\newline
+Resampling results\newline
+\begin{center}
+\begin{tabular}{ cccc } 
+% \hline
+ Accuracy & Kappa & Accuracy SD & Kappa SD \\ 
+ 0.987425 & 0.9840931 & 0.001927406 & 0.002429363 \\
+% \hline
+\end{tabular}
+\end{center}
+Tuning parameter 'mtry' was held constant at a value of 17
+
+%\end{itemize}
+\end{tcolorbox}
+\end{frame}
+
+
+%Slide-17
+
+\begin{frame}[fragile]
+\frametitle{Evaluating the model:}
+\begin{itemize}
+\begin{tcolorbox}
+\item Once we have trained the model on the training data, 
+we can test the model on the validate data set:\\[12pt]
+\item Using Confussion Matrix to evaluate the Prediction Model set 
+versus the testing Data set.
+
+\end{tcolorbox}
+\end{itemize}
+\end{frame}
+
+
+%Slide-18
+
+\begin{frame}[fragile]
+\frametitle{Confusion Matrix}
+\begin{lstlisting}[language=R]
+
+confusionMatrix(predict(modelFit,NewTest),
+NewTest$classe)
+
+
+\end{lstlisting}
+\end{frame}
+
+
+
+%Slide-19
+
+\begin{frame}[fragile]
+\frametitle{Output:}
+
+\begin{tcolorbox}
+%\begin{itemize}
+Confusion Matrix and Statistics\newline
+\centering Reference\newline
+
+\begin{center}
+\begin{tabular}{ cccccc } 
+% \hline
+ Prediction & A & B & C & D & E \\ 
+ A & 1163 & 0 & 0 & 0 & 0 \\
+ B & 0 & 819 & 0 & 0 & 0 \\
+ C & 0 & 0 & 708 & 0 & 0 \\
+ D & 0 & 0 & 0 & 672 & 0 \\
+ E & 0 & 0 & 0 & 0 & 761 \\
+% \hline
+\end{tabular}
+\end{center}
+
+%\end{itemize}
+\end{tcolorbox}
+\end{frame}
+
+
+%Slide-20
+
+\begin{frame}[fragile]
+\frametitle{Output:}
+\begin{tcolorbox}
+%\begin{itemize}
+Overall Statistics\newline
+\centering Accuracy : 1\newline
+\centering 95\% CI : (0.9991, 1)\newline
+\centering No Information Rate : 0.2821\newline
+\centering P-Value [Acc > NIR] : < 2.2e-16\newline
+\centering Kappa : 1\newline
+\centering Mcnemar's Test P-Value : NA
+
+
+%\end{itemize}
+\end{tcolorbox}
+\end{frame}
+
+
+%Slide-21
+
+\begin{frame}[fragile]
+\frametitle{Output:}
+\begin{block}{Statistics by Class:}\newline
+
+\begin{center}
+\begin{tabular}{ cccccc } 
+% \hline
+  & A & B & C & D & E \\ 
+Sensitivity & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+Specificity & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+Pos Pred Value & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+Neg Pred Value & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+Prevalence & 0.2821 & 0.1986 & 0.1717 & 0.163 & 0.1846 \\
+Detection Rate & 0.2821 & 0.1986 & 0.1717 & 0.163 & 0.1846 \\
+Detection Prevalence & 0.2821 & 0.1986 & 0.1717 & 0.163 & 0.1846 \\
+Balanced Accuracy & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+% \hline
+\end{tabular}
+\end{center}
+
+\end{block}
+\end{frame}
+
+
+%Slide-22
+
+\begin{frame}[fragile]
+\frametitle{Comparing Accuracy of the model:}
+\begin{tcolorbox}
+\begin{itemize}
+\item mean(predict(modelFit,NewTest) == NewTest\$classe)*100\\
+100\\
+accurate = c(as.numeric(predict(modelFit,newdata = NewTest[, -ncol(NewTest)]) 
+== NewTest\$classe))\\
+Accuracy = sum(accurate)*100/nrow(NewTest)\\
+message("Accuracy of Prediction Model set VS Validate Data set = ", 
+format(round(Accuracy, 2), nsmall=2),"\%")\\
+\item \textcolor{blue}{Accuracy of Prediction Model set VS Validate 
+Data set = 100.00\%}
+
+
+\end{itemize}
+\end{tcolorbox}
+\end{frame}
+
+
+%Slide-23
+
+\begin{frame}[fragile]
+\frametitle{Conclusion:}
+\begin{alertblock}
+{\textcolor{violet}{Hence the result shows a 100\% accuracy which proves 
+that the random forest really fits well in this case.}}
+\end{alertblock}
+\end{frame}
+
+
+%Slide-24
+
+\begin{frame}[fragile]
+\frametitle{Prediction on testing data set:}
+\begin{itemize}
+\begin{tcolorbox}
+\item nrow(testingRaw)\\
+20\\
+\item ncol(testingRaw)\\
+160\\
+\item Predictiontest = predict(modelFit,testingRaw)
+
+\end{tcolorbox}
+\end{itemize}
+\end{frame}
+
+
+%Slide-25
+
+\begin{frame}[fragile]
+\frametitle{Output:}
+\begin{block}{Predictiontest:}\newline
+
+B   A   B   A   A   E   D   B   A   A   B   C   B   A   E   E   A   
+B   B   B\newline
+Levels:  A   B   C   D   E
+
+\end{block}
+\end{frame}
+
+
+%Slide-26
+
+\begin{frame}[fragile]
+\frametitle{Generating Files for Assignment:}
+\begin{block}{Generating files:}\newline
+
+pml\_write\_files = function(x) \{\newline
+n = length(x)\newline
+for(i in 1:n) \{\newline
+filename = paste0("problem\_id\_",i,".txt")\newline
+write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,
+col.names=FALSE)\newline
+\}\newline
+\}
+
+\end{block}
+\end{frame}
+
+
+%Slide-27
+
+\begin{frame}[fragile]
+\frametitle{Saving files:}
+\begin{itemize}
+\begin{tcolorbox}
+
+\item setwd("C:/Users/Rimli/Desktop/Coursera/Week3/R-Scrpt/
+Predict on Test data")\\[12pt]
+\item pml\_write\_files(Predictiontest)
+
+\end{tcolorbox}
+\end{itemize}
+\end{frame}
+
+
+
+\end{document}
